@@ -15,7 +15,7 @@ public class Usuario extends Pessoa {
     public Usuario() {}
 
     public Usuario(String nome, String cpf, String login, String senha) {
-        super(nome, cpf); // Chama o construtor da Pessoa
+        super(nome, cpf); 
         this.login = login;
         this.senha = senha;
     }
