@@ -1,0 +1,3 @@
+br/com/sualoja/dao/CategoriaDAO.class
+br/com/sualoja/model/Categoria.class
+br/com/sualoja/testes/CadastroDeCategoria.class
