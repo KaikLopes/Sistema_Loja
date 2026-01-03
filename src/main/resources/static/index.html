@@ -21,8 +21,8 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-white" onclick="carregarView('produtos')">
                     <i class="fas fa-box me-2"></i>Produtos
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-secondary disabled">
-                    <i class="fas fa-shopping-cart me-2"></i>Vendas (Em breve)
+                <a href="#" class="list-group-item list-group-item-action bg-transparent text-white" onclick="carregarView('vendas')">
+                    <i class="fas fa-shopping-cart me-2"></i>Vendas
                 </a>
             </div>
         </div>
@@ -69,6 +69,48 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="salvarProduto()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalVenda" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="fas fa-shopping-cart me-2"></i>Registrar Venda</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-venda">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Cliente</label>
+                                <select class="form-select" id="venda-cliente">
+                                <option value="2">Lucas Cliente (ID 2)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Vendedor</label>
+                                <select class="form-select" id="venda-vendedor">
+                                    <option value="1">Kaik Vendedor (ID 1)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6>Itens da Venda</h6>
+                        <div id="lista-itens-venda" class="mb-3"></div>
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="adicionarLinhaItem()">
+                            <i class="fas fa-plus"></i> Adicionar Produto
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <h5 class="text-success fw-bold">Total: R$ <span id="venda-total-estimado">0.00</span></h5>
+                    <div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" onclick="finalizarVenda()">Finalizar Venda</button>
+                    </div>
                 </div>
             </div>
         </div>
