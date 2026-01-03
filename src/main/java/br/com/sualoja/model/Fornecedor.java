@@ -15,8 +15,6 @@ public class Fornecedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // Usamos @Column para ligar o atributo Java 'nomeFantasia'
-    // à coluna do banco 'nome_fantasia'
     @Column(name = "nome_fantasia")
     private String nomeFantasia;
 
@@ -29,17 +27,13 @@ public class Fornecedor {
 
     private String email;
 
-    // Construtor padrão obrigatório para o JPA
     public Fornecedor() {
     }
 
-    // Construtor para facilitar a criação
     public Fornecedor(String nomeFantasia, String cnpj) {
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;
     }
-
-    // --- Getters e Setters para todos os campos ---
 
     public Integer getId() {
         return id;

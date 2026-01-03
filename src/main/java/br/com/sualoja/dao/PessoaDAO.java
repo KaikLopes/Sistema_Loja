@@ -20,7 +20,6 @@ public class PessoaDAO {
         return this.em.find(Pessoa.class, id);
     }
 
-    // Exemplo de consulta para listar todos os nomes
     public List<Pessoa> buscarTodos() {
         String jpql = "SELECT p FROM Pessoa p";
         return em.createQuery(jpql, Pessoa.class).getResultList();

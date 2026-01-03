@@ -30,8 +30,7 @@ public class ProdutoDAO {
     }
 
     public List<Produto> buscarTodos() {
-    // JPQL (Java Persistence Query Language) - é como SQL, mas para objetos Java
-    String jpql = "SELECT p FROM Produto p"; // "Selecione todos os objetos 'p' do tipo 'Produto'"
-    return em.createQuery(jpql, Produto.class).getResultList();
-}
+        String jpql = "SELECT p FROM Produto p";
+        return em.createQuery(jpql, Produto.class).getResultList();
+    }
 }
