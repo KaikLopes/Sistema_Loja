@@ -1,4 +1,4 @@
-package br.com.sualoja.dao;
+package br.com.sualoja.controller;
 
 import br.com.sualoja.dao.ProdutoDAO;
 import br.com.sualoja.model.Produto;
