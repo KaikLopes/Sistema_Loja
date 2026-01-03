@@ -4,63 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Admin - Sua Loja</title>
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Ícones para botões -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="d-flex" id="wrapper">
         <!-- Sidebar de Navegação -->
-        <aside class="sidebar">
-            <div class="logo">
-                <h2>🏗️ Sua Loja</h2>
+        <div class="bg-dark text-white" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+                <i class="fas fa-tools me-2"></i>Sua Loja
             </div>
-            <nav>
-                <button onclick="mostrarTela('lista')" class="active"><i class="fas fa-box"></i> Produtos</button>
-                <button onclick="mostrarTela('form')"><i class="fas fa-plus-circle"></i> Novo Produto</button>
-            </nav>
-        </aside>
+            <div class="list-group list-group-flush my-3">
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active">
+                    <i class="fas fa-box-open me-2"></i>Produtos
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text">
+                    <i class="fas fa-users me-2"></i>Clientes (Em breve)
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text">
+                    <i class="fas fa-chart-line me-2"></i>Vendas (Em breve)
+                </a>
+            </div>
+        </div>
 
         <!-- Conteúdo Principal -->
-        <main class="content">
-            <header>
-                <h1>Gerenciamento de Estoque</h1>
-            </header>
-
-            <!-- Tela de Listagem -->
-            <section id="tela-lista" class="active-section">
-                <div class="toolbar">
-                    <input type="text" id="busca" placeholder="Buscar produto..." onkeyup="filtrarProdutos()">
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                <div class="d-flex align-items-center">
+                    <h2 class="fs-2 m-0">Gerenciamento de Estoque</h2>
                 </div>
-                <div id="lista-produtos" class="grid-produtos">
-                    <p>Carregando produtos...</p>
-                </div>
-            </section>
+            </nav>
 
-            <!-- Tela de Formulário (Cadastro/Edição) -->
-            <section id="tela-form" class="hidden-section">
-                <h2>Cadastrar / Editar Produto</h2>
-                <form id="form-produto">
-                    <input type="hidden" id="prod-id">
-                    
-                    <label>Nome do Produto</label>
-                    <input type="text" id="prod-nome" required>
-
-                    <label>Preço de Venda (R$)</label>
-                    <input type="number" id="prod-preco" step="0.01" required>
-
-                    <label>Quantidade em Estoque</label>
-                    <input type="number" id="prod-estoque" required>
-
-                    <div class="form-actions">
-                        <button type="button" onclick="mostrarTela('lista')" class="btn-cancel">Cancelar</button>
-                        <button type="submit" class="btn-save">Salvar Produto</button>
+            <div class="container-fluid px-4">
+                <!-- Barra de Ferramentas -->
+                <div class="row my-4">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" id="busca" placeholder="Buscar produto por nome..." onkeyup="filtrarProdutos()">
+                        </div>
                     </div>
-                </form>
-            </section>
-        </main>
+                    <div class="col-md-4 text-end">
+                        <button class="btn btn-primary" onclick="abrirModalCadastro()">
+                            <i class="fas fa-plus me-2"></i>Novo Produto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabela de Produtos -->
+                <div class="row">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <table class="table table-hover bg-white rounded">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nome do Produto</th>
+                                            <th scope="col">Preço (R$)</th>
+                                            <th scope="col">Estoque</th>
+                                            <th scope="col" class="text-end">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-produtos-corpo">
+                                        <!-- Linhas inseridas via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Modal de Cadastro/Edição -->
+    <div class="modal fade" id="modalProduto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitulo">Novo Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-produto">
+                    <input type="hidden" id="prod-id">
+                        <div class="mb-3">
+                            <label for="prod-nome" class="form-label">Nome do Produto</label>
+                            <input type="text" class="form-control" id="prod-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prod-preco" class="form-label">Preço de Venda</label>
+                            <div class="input-group">
+                                <span class="input-group-text">R$</span>
+                                <input type="number" class="form-control" id="prod-preco" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prod-estoque" class="form-label">Quantidade em Estoque</label>
+                            <input type="number" class="form-control" id="prod-estoque" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarProduto()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
