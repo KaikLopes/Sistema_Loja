@@ -2,14 +2,14 @@ package br.com.sualoja.dao;
 
 import br.com.sualoja.model.Usuario;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
+@Repository // <--- Adicione
 public class UsuarioDAO {
 
+    @PersistenceContext
     private EntityManager em;
-
-    public UsuarioDAO(EntityManager em) {
-        this.em = em;
-    }
 
     public void cadastrar(Usuario usuario) {
         this.em.persist(usuario);

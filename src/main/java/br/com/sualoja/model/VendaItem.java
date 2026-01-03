@@ -2,6 +2,7 @@ package br.com.sualoja.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "VendasItens")
@@ -13,6 +14,7 @@ public class VendaItem {
 
     @ManyToOne
     @JoinColumn(name = "venda_id")
+    @JsonIgnore // Evita referência circular na serialização JSON
     private Venda venda;
 
     @ManyToOne
